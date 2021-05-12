@@ -17,7 +17,8 @@ class Login extends Component {
             <div>
                 <h3>Login</h3>
                 <div>
-                    <select name='users' onChange={(e) => this.handleLogin(e)}>
+                    <select name='users' value='none' onChange={(e) => this.handleLogin(e)}>
+                        <option value="none" disabled>Select User</option>
                         {Object.keys(users).map((id) => <option key={id} value={id}>{users[id].name}</option>)}
                     </select>
                 </div>
