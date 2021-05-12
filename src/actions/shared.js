@@ -1,10 +1,16 @@
-import { users, questions } from '../utils/_DATA'
+import { _getUsers, _getQuestions } from '../utils/_DATA'
 import { getQuestions } from './questions'
 import { getUsers } from './users'
 
 export function handleInitialData(){
     return(dispatch) => {
-        dispatch(getUsers(users))
-        dispatch(getQuestions(questions))
+        _getUsers()
+        .then((users) => {
+            dispatch(getUsers(users))
+        })
+        _getQuestions()
+        .then((questions) => {
+            dispatch(getQuestions(questions))
+        })
     }
 }

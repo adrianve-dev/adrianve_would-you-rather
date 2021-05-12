@@ -1,7 +1,7 @@
 import { ADD_QUESTION, ADD_QUESTION_ANSWER, GET_QUESTIONS } from "../actions/questions";
 
 
-export function questions(state = {}, action){
+export default function questions(state = {}, action){
     switch(action.type){
         case GET_QUESTIONS:
             return {
