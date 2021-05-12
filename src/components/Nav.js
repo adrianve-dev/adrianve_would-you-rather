@@ -13,7 +13,10 @@ class Nav extends Component {
                 <Link to='/#' >Leaderboard</Link>
                 {!authedUser
                     ? <Link to='/login'>Login</Link>
-                    : <span>Welcome, {users[authedUser].name}</span>
+                    : <span>
+                        Welcome, {users[authedUser].name}
+                        <Link to='/logout'>Logout</Link>
+                    </span>
                 }
             </div>
         );

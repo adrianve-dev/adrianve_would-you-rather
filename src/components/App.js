@@ -4,6 +4,7 @@ import { Route } from 'react-router';
 import { handleInitialData } from '../actions/shared';
 import '../App.css';
 import Login from './Login';
+import Logout from './Logout';
 import Nav from './Nav'
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
         </header>
         <Nav />
         <Route path='/login' render={({history}) => <Login history={history}/>} />
+        <Route path='/logout' render={({history}) => <Logout dispatch={this.props.dispatch} history={history}/>} />
       </div>
     );
   }
