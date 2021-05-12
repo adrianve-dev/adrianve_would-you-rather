@@ -1,19 +1,30 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-function Nav (props) {
-    const {authedUser} = props
-    return (
-        <div>
-            <Link to='/' >Home</Link>
-            <Link to='/#' >New Question</Link>
-            <Link to='/#' >Leaderboard</Link>
-            {!authedUser 
-                ? <Link to='/login' >Login</Link>
-                : <span>Welcome {authedUser}</span>
-            }
-        </div>
-    );
+class Nav extends Component {
+
+    render(){
+        const {authedUser, users} = this.props
+        return (
+            <div>
+                <Link to='/' >Home</Link>
+                <Link to='/#' >New Question</Link>
+                <Link to='/#' >Leaderboard</Link>
+                {!authedUser
+                    ? <Link to='/login'>Login</Link>
+                    : <span>Welcome, {users[authedUser].name}</span>
+                }
+            </div>
+        );
+    }
 }
 
-export default Nav;
+const mapStateToProps = ({authedUser, users}) => {
+    return {
+        authedUser,
+        users
+    }
+}
+
+export default connect(mapStateToProps)(Nav);

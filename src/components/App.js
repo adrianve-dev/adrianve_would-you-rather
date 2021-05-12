@@ -12,7 +12,6 @@ class App extends Component {
   }
 
   render(){
-    const {authedUser, users, questions} = this.props
 
     return (
       <div className="App">
@@ -20,14 +19,7 @@ class App extends Component {
           Built with React and Redux
         </header>
         <Nav />
-        {authedUser}
-        <div>
-          {Object.keys(users).map((id) => <p key={id}>{id}</p>)}
-        </div>
-        <div>
-          {Object.keys(questions).map((id) => <p key={id}>{id}</p>)}
-        </div>
-        <Route path='/login' component={Login} />
+        <Route path='/login' render={({history}) => <Login history={history}/>} />
       </div>
     );
   }

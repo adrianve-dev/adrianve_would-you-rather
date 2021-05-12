@@ -1,16 +1,24 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import { setAuthedUser } from '../actions/authedUser'
 
 class Login extends Component {
-    
+    handleLogin = (e) => {
+        e.preventDefault()
+        let id = e.target.value
+        this.props.dispatch(setAuthedUser(id))
+        this.props.history.push('/')
+    }
+
     render(){
+        const {users} = this.props
+
         return (
             <div>
                 <h3>Login</h3>
                 <div>
-                    <select name='users'>
-                        <option value='john-doe'>John Doe</option>
-                        <option value='person-one'>Person One</option>
-                        <option value='person-two'>Person Two</option>
+                    <select name='users' onChange={(e) => this.handleLogin(e)}>
+                        {Object.keys(users).map((id) => <option key={id} value={id}>{users[id].name}</option>)}
                     </select>
                 </div>
             </div>
@@ -19,4 +27,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = ({users}) => {
+    return {
+        users
+    }
+}
+
+export default connect(mapStateToProps)(Login);
