@@ -1,11 +1,15 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route } from 'react-router';
+import { Route, Switch } from 'react-router';
 import { handleInitialData } from '../actions/shared';
 import '../App.css';
 import Login from './Login';
 import Logout from './Logout';
 import Nav from './Nav'
+import AnsweredQuestions from './AnsweredQuestions';
+import UnansweredQuestions from './UnansweredQuestions';
+import NotFound from './NotFound';
+import CardQuestion from './CardQuestion';
 
 class App extends Component {
   componentDidMount(){
@@ -20,8 +24,21 @@ class App extends Component {
           Built with React and Redux
         </header>
         <Nav />
-        <Route path='/login' render={({history}) => <Login history={history}/>} />
-        <Route path='/logout' render={({history}) => <Logout dispatch={this.props.dispatch} history={history}/>} />
+        <Switch>
+          <Route exact path='/'>
+            <div>
+              <h3>Unanswered Questions</h3>
+              <UnansweredQuestions />
+              <hr />
+              <h3>Answered Questions</h3>
+              <AnsweredQuestions />
+            </div>
+          </Route>
+          <Route path='/login' render={({history}) => <Login history={history}/>} />
+          <Route path='/logout' render={({history}) => <Logout dispatch={this.props.dispatch} history={history}/>} />
+          <Route path='/questions/:qid' component={CardQuestion} />
+          <Route path='/404' component={NotFound}/>
+        </Switch>
       </div>
     );
   }

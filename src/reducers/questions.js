@@ -16,32 +16,32 @@ export default function questions(state = {}, action){
                 }
             }
         case ADD_QUESTION_ANSWER:
-            const {answer} = action
+            const {qid, answer, authedUser} = action.answer
 
             
             let question = {}
             if(answer === 'optionOne'){
                 question = {
-                    ...state[action.qid],
+                    ...state[qid],
                     optionOne: {
-                        ...state[action.qid].optionOne,
-                        votes: state[action.qid].optionOne.concat(action.authedUser)
+                        ...state[qid].optionOne,
+                        votes: state[qid].optionOne.votes.concat(authedUser)
                     }
                 }
             }
             else{
                 question = {
-                    ...state[action.qid],
+                    ...state[qid],
                     optionTwo: {
-                        ...state[action.qid].optionTwo,
-                        votes: state[action.qid].optionTwo.concat(action.authedUser)
+                        ...state[qid].optionTwo,
+                        votes: state[qid].optionTwo.votes.concat(authedUser)
                     }
                 }
             }
 
             return {
                 ...state,
-                [action.qid]: question
+                [qid]: question
             }
         default:
             return state
