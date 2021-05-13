@@ -1,7 +1,8 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 export default function CardQuestionPreview (props){
-    const {optionOne} = props.question
+    const {id, optionOne} = props.question
     const {name, avatarURL} = props.user
 
     return (
@@ -16,7 +17,9 @@ export default function CardQuestionPreview (props){
                     <p>
                         {optionOne.text.slice(0, 25).trim()}...
                     </p>
-                    <button>View Poll</button>
+                    <Link to={`/questions/${id}`}>
+                        <button>View Poll</button>
+                    </Link>
                 </div>
             </div>
         </div>
