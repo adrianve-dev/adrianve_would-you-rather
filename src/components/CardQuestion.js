@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleSaveQuestionAnswer } from '../actions/shared'
+import CardQuestionPoll from './CardQuestionPoll'
+import CardQuestionVoted from './CardQuestionVoted'
 
 
 //todo: separate poll and results into own components
@@ -30,22 +32,8 @@ class CardQuestion extends Component{
                 <div>
                     <span>Would You Rather</span>
                     {!Object.keys(voter.answers).includes(qid)
-                        ? <div>
-                            <div onClick={() => this.handleVoteSelection('optionOne')}>
-                                {optionOne.text}
-                            </div>
-                            <div onClick={() => this.handleVoteSelection('optionTwo')}>
-                                {optionTwo.text}
-                            </div>
-                        </div>
-                        : <div>
-                            <div style={{color: voter.answers[qid] === 'optionOne' ? 'green' : 'gray'}}>
-                                <strong>{optionOne.text}</strong><span>{` :: ${(optionOne.votes.length / (optionOne.votes.length + optionTwo.votes.length)) * 100}% - ${optionOne.votes.length} votes`}</span>
-                            </div>
-                            <div style={{color: voter.answers[qid] === 'optionTwo' ? 'green' : 'gray'}}>
-                                <strong>{optionTwo.text}</strong><span>{` :: ${(optionTwo.votes.length / (optionOne.votes.length + optionTwo.votes.length)) * 100}% - ${optionTwo.votes.length} votes`}</span>
-                            </div>
-                        </div>
+                        ? <CardQuestionPoll optionOne={optionOne} optionTwo={optionTwo} handleVoteSelection={this.handleVoteSelection} />
+                        : <CardQuestionVoted optionOne={optionOne} optionTwo={optionTwo} authedUserAnswer={voter.answers[qid]} />
                     }
                 </div>
             </div>
