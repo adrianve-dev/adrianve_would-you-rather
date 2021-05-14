@@ -1,4 +1,4 @@
-import {_saveQuestion, _saveQuestionAnswer} from '../utils/_DATA'
+import {_saveQuestion} from '../utils/_DATA'
 
 export const GET_QUESTIONS = 'GET_QUESTIONS'
 export const ADD_QUESTION = 'ADD_QUESTION'
@@ -30,16 +30,6 @@ export function handleAddQuestion(question){
         _saveQuestion(question)
         .then((question) => {
             dispatch(addQuestion(question))
-        })
-    }
-}
-
-export function handleSaveQuestionAnswer(answer){
-    return (dispatch) => {
-        _saveQuestionAnswer(answer)
-        .then((result) => {
-            console.log('_saveQuestionAnswer result: ', result)
-            dispatch(addQuestionAnswer(answer))
         })
     }
 }
