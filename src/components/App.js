@@ -14,8 +14,24 @@ import Leaderboard from './Leaderboard';
 import NewQuestion from './NewQuestion';
 
 class App extends Component {
+  state = {
+    showUnanswered: true
+  }
+
   componentDidMount(){
     this.props.dispatch(handleInitialData())
+  }
+
+  handleShowUnanswered = () => {
+    this.setState(() => ({
+      showUnanswered: true
+    }))
+  }  
+
+  handleShowAnswered = () => {
+    this.setState(() => ({
+      showUnanswered: false
+    }))
   }
 
   render(){
@@ -30,11 +46,14 @@ class App extends Component {
         <Switch>
           <Route exact path='/'>
             <div>
-              <h3>Unanswered Questions</h3>
-              <UnansweredQuestions />
-              <hr />
-              <h3>Answered Questions</h3>
-              <AnsweredQuestions />
+              <h3>
+                  <span style={{backgroundColor: this.state.showUnanswered ? 'lightgray' : 'white'}} onClick={this.handleShowUnanswered}>Unanswered Questions</span>
+                  <span style={{backgroundColor: !this.state.showUnanswered ? 'lightgray' : 'white'}} onClick={this.handleShowAnswered}>Answered Questions</span>
+              </h3>
+              {this.state.showUnanswered
+                ? <UnansweredQuestions />              
+                : <AnsweredQuestions />
+              }
             </div>
           </Route>
           <Route path='/login' component={Login} />
