@@ -11,6 +11,7 @@ import UnansweredQuestions from './UnansweredQuestions';
 import NotFound from './NotFound';
 import CardQuestion from './CardQuestion';
 import Leaderboard from './Leaderboard';
+import NewQuestion from './NewQuestion';
 
 class App extends Component {
   componentDidMount(){
@@ -42,7 +43,8 @@ class App extends Component {
           <Route path='/leaderboard'>
             <Leaderboard authedUser={authedUser} users={users} />
           </Route>
-          <Route path='/404' component={NotFound}/>
+          <Route path='/add' component={NewQuestion} />
+          <Route path='/404' component={NotFound} />
         </Switch>
       </div>
     );

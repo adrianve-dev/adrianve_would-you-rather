@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Redirect} from 'react-router-dom'
 import { handleAddQuestion } from '../actions/questions'
 
 class NewQuestion extends Component {
@@ -21,27 +22,50 @@ class NewQuestion extends Component {
             }))
     }
 
-    handleSubmit = (optionOne, optionTwo) => {
-        const {authedUser, dispatch} = this.props
+    handleSubmit = (e, optionOne, optionTwo) => {
+        e.preventDefault()
+        const {authedUser, dispatch, history} = this.props
 
-        dispatch(handleAddQuestion({authedUser, optionOne, optionTwo}))
+        const newQuestion = {
+            author: authedUser,
+            optionOneText: optionOne,
+            optionTwoText: optionTwo
+        }
+        console.log('newQuestion', newQuestion)
+
+        dispatch(handleAddQuestion(newQuestion))
         
-        this.history.push('/')
+        history.push('/')
     }
 
     render(){
+        if(!this.props.authedUser){
+            return <Redirect to='/login' />
+        }
+
         const {optionOne, optionTwo} = this.state
+        const disableButton = optionOne === '' || optionTwo === ''
+        
         return(
             <div>
-                <form onSubmit={this.handleSubmit(optionOne, optionTwo)}>
+                <form onSubmit={(e) => this.handleSubmit(e, optionOne, optionTwo)}>
                     <h3>New Poll</h3>
                     <input value={optionOne} placeholder='Option One' onChange={(e) => this.handleFormChange(e.target.value, this.one)} />
                     <input value={optionTwo} placeholder='Option Two' onChange={(e) => this.handleFormChange(e.target.value, this.two)} />
-                    <button type='submit' disabled={optionOne === '' && optionTwo === ''}>Submit</button>
+                    <button type='submit' disabled={disableButton}>Submit</button>
                 </form>
             </div>
         )
     }
 }
 
-export default connect()(NewQuestion)
+const mapStateToProps = ({authedUser}, props) => {
+    const {history} = props
+
+    return {
+        authedUser,
+        history
+    }
+}
+
+export default connect(mapStateToProps)(NewQuestion)

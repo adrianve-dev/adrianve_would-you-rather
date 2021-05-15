@@ -9,7 +9,7 @@ class Nav extends Component {
         return (
             <div>
                 <Link to='/' >Home</Link>
-                <Link to='/#' >New Question</Link>
+                <Link to='/add' >New Question</Link>
                 <Link to='/leaderboard' >Leaderboard</Link>
                 {!authedUser
                     ? <Link to='/login'>Login</Link>
