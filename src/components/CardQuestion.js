@@ -5,8 +5,6 @@ import { handleSaveQuestionAnswer } from '../actions/shared'
 import CardQuestionPoll from './CardQuestionPoll'
 import CardQuestionVoted from './CardQuestionVoted'
 
-
-//todo: separate poll and results into own components
 class CardQuestion extends Component{
     handleVoteSelection = (answer) => {
         const {authedUser, qid, dispatch} = this.props
@@ -15,8 +13,11 @@ class CardQuestion extends Component{
     }
 
     render(){
-        if(!this.props.qid){
-            return <Redirect to='/404' />
+        if(!this.props.questionKeys.includes(this.props.qid)){
+            return <Redirect to={{
+                        pathname:'/404',
+                        state: {referrer: ''}
+                    }} />
         }
         
         if(!this.props.question || !this.props.user){
@@ -46,14 +47,15 @@ class CardQuestion extends Component{
 }
 
 const mapStateToProps = ({authedUser, users, questions}, props) => {
-    console.log(users, questions)
+    
     const {qid} = props.match.params
 
     return {
         qid,
+        questionKeys: Object.keys(questions),
         authedUser,
         voter: users[authedUser],
-        user: users[questions[qid]] ? users[questions[qid].author] : null,
+        user: questions[qid] ? users[questions[qid].author] : null,
         question: questions[qid]
     }
 }
