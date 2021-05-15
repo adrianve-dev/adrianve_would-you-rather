@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { handleAddQuestion } from '../actions/questions'
 
 class NewQuestion extends Component {
@@ -43,4 +44,4 @@ class NewQuestion extends Component {
     }
 }
 
-export default NewQuestion
+export default connect()(NewQuestion)
