@@ -24,12 +24,3 @@ export function addQuestionAnswer (answer){
         answer
     }
 }
-
-export function handleAddQuestion(question){
-    return (dispatch) => {
-        _saveQuestion(question)
-        .then((question) => {
-            dispatch(addQuestion(question))
-        })
-    }
-}

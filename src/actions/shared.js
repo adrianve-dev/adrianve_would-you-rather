@@ -1,6 +1,6 @@
-import { _getUsers, _getQuestions, _saveQuestionAnswer } from '../utils/_DATA'
-import { getQuestions, addQuestionAnswer } from './questions'
-import { getUsers, addUserAnswer } from './users'
+import { _getUsers, _getQuestions, _saveQuestionAnswer, _saveQuestion } from '../utils/_DATA'
+import { getQuestions, addQuestion, addQuestionAnswer } from './questions'
+import { getUsers, addUserAnswer, addUserQuestion } from './users'
 
 export function handleInitialData(){
     return(dispatch) => {
@@ -11,6 +11,19 @@ export function handleInitialData(){
         _getQuestions()
         .then((questions) => {
             dispatch(getQuestions(questions))
+        })
+    }
+}
+
+export function handleAddQuestion(question){
+    return (dispatch) => {
+        _saveQuestion(question)
+        .then((question) => {
+            dispatch(addQuestion(question))
+            dispatch(addUserQuestion({
+                id: question.id,
+                author: question.author
+            }))
         })
     }
 }
