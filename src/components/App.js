@@ -10,6 +10,7 @@ import AnsweredQuestions from './AnsweredQuestions';
 import UnansweredQuestions from './UnansweredQuestions';
 import NotFound from './NotFound';
 import CardQuestion from './CardQuestion';
+import Leaderboard from './Leaderboard';
 
 class App extends Component {
   componentDidMount(){
@@ -17,6 +18,7 @@ class App extends Component {
   }
 
   render(){
+    const {authedUser, users, dispatch} = this.props
 
     return (
       <div className="App">
@@ -35,8 +37,11 @@ class App extends Component {
             </div>
           </Route>
           <Route path='/login' render={({history}) => <Login history={history}/>} />
-          <Route path='/logout' render={({history}) => <Logout dispatch={this.props.dispatch} history={history}/>} />
+          <Route path='/logout' render={({history}) => <Logout dispatch={dispatch} history={history}/>} />
           <Route path='/questions/:qid' component={CardQuestion} />
+          <Route path='/leaderboard'>
+            <Leaderboard authedUser={authedUser} users={users} />
+          </Route>
           <Route path='/404' component={NotFound}/>
         </Switch>
       </div>
