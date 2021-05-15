@@ -18,6 +18,10 @@ class CardQuestion extends Component{
         if(!this.props.qid){
             return <Redirect to='/404' />
         }
+        
+        if(!this.props.question || !this.props.user){
+            return <Redirect to='/login' />
+        }
 
         const {qid, question, voter, user} = this.props
         const {optionOne, optionTwo} = question
@@ -42,13 +46,14 @@ class CardQuestion extends Component{
 }
 
 const mapStateToProps = ({authedUser, users, questions}, props) => {
+    console.log(users, questions)
     const {qid} = props.match.params
 
     return {
         qid,
         authedUser,
         voter: users[authedUser],
-        user: users[questions[qid].author],
+        user: users[questions[qid]] ? users[questions[qid].author] : null,
         question: questions[qid]
     }
 }
