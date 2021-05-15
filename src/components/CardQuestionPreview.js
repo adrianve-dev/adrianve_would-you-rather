@@ -6,9 +6,9 @@ export default function CardQuestionPreview (props){
     const {name, avatarURL} = props.user
 
     return (
-        <div>
+        <div className='card'>
             <div>
-                <img src={avatarURL} alt={name} style={{width: 50}} />
+                <img src={avatarURL} alt={name} />
                 {name} asks:
             </div>
             <div>

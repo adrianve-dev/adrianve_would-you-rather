@@ -33,9 +33,9 @@ class CardQuestion extends Component{
         const {name, avatarURL} = user
 
         return (
-            <div>
+            <div className='card'>
                 <div>
-                    <img src={avatarURL} alt={name} style={{width: 50}} />
+                    <img src={avatarURL} alt={name} />
                     {name} asks:
                 </div>
                 <div>

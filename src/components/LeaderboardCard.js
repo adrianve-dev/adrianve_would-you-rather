@@ -8,7 +8,7 @@ export default function LeaderboardCard (props) {
 
     return(
         <div style={{borderStyle: 'solid', borderWidth: 1, borderColor: 'gray', margin: 'auto', marginTop: 5, marginBottom:5, padding: 10, width: '50%'}}>
-            <img src={avatarURL} alt={name} style={{width: 50}} />
+            <img src={avatarURL} alt={name} />
             <div>
                 <h3>{name}</h3>
                 <div>
