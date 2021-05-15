@@ -37,7 +37,7 @@ class App extends Component {
               <AnsweredQuestions />
             </div>
           </Route>
-          <Route path='/login' render={({history}) => <Login history={history}/>} />
+          <Route path='/login' component={Login} />
           <Route path='/logout' render={({history}) => <Logout dispatch={dispatch} history={history}/>} />
           <Route path='/questions/:qid' component={CardQuestion} />
           <Route path='/leaderboard'>

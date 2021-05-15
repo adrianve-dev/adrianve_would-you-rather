@@ -6,8 +6,10 @@ class Login extends Component {
     handleLogin = (e) => {
         e.preventDefault()
         let id = e.target.value
-        this.props.dispatch(setAuthedUser(id))
-        this.props.history.push('/')
+        const {dispatch, location} = this.props
+        dispatch(setAuthedUser(id))
+        const hasRef = location.state && location.state.referrer
+        hasRef ? this.props.history.push(location.state.referrer) : this.props.history.push('/')
     }
 
     render(){
