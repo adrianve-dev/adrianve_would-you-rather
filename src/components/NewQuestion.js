@@ -40,7 +40,10 @@ class NewQuestion extends Component {
 
     render(){
         if(!this.props.authedUser){
-            return <Redirect to='/login' />
+            return <Redirect to={{
+                pathname:'/login',
+                state: {referrer: '/add'}
+            }} />
         }
 
         const {optionOne, optionTwo} = this.state

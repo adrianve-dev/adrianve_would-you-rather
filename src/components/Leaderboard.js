@@ -4,7 +4,10 @@ import LeaderboardCard from './LeaderboardCard'
 
 export default function Leaderboard (props) {
     if(!props.authedUser){
-        return <Redirect to='/Login' />
+        return <Redirect to={{
+                    pathname:'/login',
+                    state: {referrer: '/leaderboard'}
+                }} />
     }
 
     const {users} = props

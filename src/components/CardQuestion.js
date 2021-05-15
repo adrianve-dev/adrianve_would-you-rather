@@ -13,15 +13,19 @@ class CardQuestion extends Component{
     }
 
     render(){
+        
+        if(!this.props.authedUser){
+            return <Redirect to={{
+                        pathname:'/login',
+                        state: {referrer: `/questions/${this.props.qid}`}
+                    }} />
+        }
+
         if(!this.props.questionKeys.includes(this.props.qid)){
             return <Redirect to={{
                         pathname:'/404',
-                        state: {referrer: ''}
+                        state: {referrer: `/questions/${this.props.qid}`}
                     }} />
-        }
-        
-        if(!this.props.question || !this.props.user){
-            return <Redirect to='/login' />
         }
 
         const {qid, question, voter, user} = this.props
