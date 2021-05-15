@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import { Redirect } from 'react-router'
 import CardQuestionPreview from './CardQuestionPreview'
+import NoQuestions from './NoQuestions'
 
 class UnansweredQuestions extends Component{
     render(){
@@ -11,13 +12,16 @@ class UnansweredQuestions extends Component{
             return <Redirect to='/login' />
         }
 
+        const questionList = Object.keys(questions)
+                                .filter((qid) => !questions[qid].optionOne.votes.includes(authedUser) && !questions[qid].optionTwo.votes.includes(authedUser))
+                                    .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
         return(
 
             <div>
-                {Object.keys(questions)
-                    .filter((qid) => !questions[qid].optionOne.votes.includes(authedUser) && !questions[qid].optionTwo.votes.includes(authedUser))
-                        .sort((a, b) => questions[b].timestamp - questions[a].timestamp)
-                        .map((qid) => <CardQuestionPreview key={qid} user={users[questions[qid].author]} question={questions[qid]} />)}
+                {questionList.length > 0
+                    ? questionList.map((qid) => <CardQuestionPreview key={qid} user={users[questions[qid].author]} question={questions[qid]} />)
+                    : <NoQuestions />
+                }
             </div>
         )
     }
